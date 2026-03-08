@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { ArrowDown, Github, Linkedin, Facebook } from 'lucide-react';
+import { ArrowDown, Linkedin, Facebook } from 'lucide-react';
 
 const Hero = () => {
   const heroRef = useRef<HTMLElement>(null);

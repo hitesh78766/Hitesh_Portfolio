@@ -24,7 +24,7 @@ const Contact = () => {
       const templateID = 'template_ql8s77v';
       const publicKey = 'qSGXzdjPJiwMFl0b0';
       
-      const response = await emailjs.send(serviceID, templateID, {
+      await emailjs.send(serviceID, templateID, {
         from_name: formState.name,
         from_email: formState.email,
         message: formState.message,
@@ -42,9 +42,10 @@ const Contact = () => {
     } catch (error) {
       setIsSubmitting(false);
       
-      if (error.text === 'The Public Key is invalid') {
+      const errorMessage = error as any;
+      if (errorMessage.text === 'The Public Key is invalid') {
         toast.error('EmailJS configuration error. Please check your Public Key.');
-      } else if (error.status === 400) {
+      } else if (errorMessage.status === 400) {
         toast.error('Invalid request. Please check your EmailJS configuration.');
       } else {
         toast.error('Failed to send message. Please try again later.');

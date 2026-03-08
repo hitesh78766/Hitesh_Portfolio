@@ -67,7 +67,7 @@ const Skills = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
   
-  const getSizeClasses = (size: string) => {
+  const getSizeClasses = () => {
     // All skills have the same size regardless of device
     return 'w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 text-xs md:text-sm lg:text-base';
   };
@@ -151,7 +151,7 @@ const Skills = () => {
             return (
               <div
                 key={skill.name}
-                className={`absolute skill-node cursor-pointer ${getSizeClasses(skill.size)}`}
+                className={`absolute skill-node cursor-pointer ${getSizeClasses()}`}
                 style={{
                   left: `calc(${skill.x}% - 32px)`,
                   top: `calc(${skill.y}% - 32px)`,
