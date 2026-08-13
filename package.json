@@ -1,7 +1,8 @@
 {
   "name": "portfolio-root",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "build": "node build.js"
+    "build": "cd app && npm install && npm run build"
   }
 }
