@@ -16,8 +16,7 @@ const skills: Skill[] = [
   { name: 'JavaScript', icon: '⚡', color: '#F7DF1E', proficiency: 95, x: 45, y: 15, size: 'lg' },
   { name: 'React', icon: '⚛️', color: '#61DAFB', proficiency: 90, x: 70, y: 35, size: 'lg' },
   { name: 'Next.js', icon: '▲', color: '#FFFFFF', proficiency: 85, x: 88, y: 60, size: 'lg' },
-  { name: 'Vue.js', icon: '💚', color: '#4FC08D', proficiency: 85, x: 20, y: 75, size: 'md' },
-  { name: 'Vuetify', icon: '🔷', color: '#1867C0', proficiency: 85, x: 40, y: 70, size: 'sm' },
+
   { name: 'TypeScript', icon: '📘', color: '#3178C6', proficiency: 80, x: 55, y: 50, size: 'lg' },
   { name: 'Tailwind', icon: '🌊', color: '#06B6D4', proficiency: 90, x: 80, y: 20, size: 'md' },
   { name: 'Bootstrap', icon: '🅱️', color: '#7952B3', proficiency: 95, x: 30, y: 88, size: 'md' },
@@ -67,9 +66,13 @@ const Skills = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
   
-  const getSizeClasses = () => {
-    // All skills have the same size regardless of device
-    return 'w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 text-xs md:text-sm lg:text-base';
+  const getSizeClasses = (size: 'sm' | 'md' | 'lg') => {
+    switch(size) {
+      case 'lg': return 'w-20 h-20 md:w-24 md:h-24 lg:w-24 lg:h-24 text-xs md:text-sm lg:text-base';
+      case 'md': return 'w-16 h-16 md:w-20 md:h-20 lg:w-20 lg:h-20 text-xs md:text-sm';
+      case 'sm': return 'w-14 h-14 md:w-16 md:h-16 lg:w-16 lg:h-16 text-[10px] md:text-xs';
+      default: return 'w-16 h-16 md:w-20 md:h-20 lg:w-20 lg:h-20 text-xs md:text-sm';
+    }
   };
   
   return (
@@ -101,6 +104,10 @@ const Skills = () => {
         {/* Skills Galaxy */}
         <div 
           className={`relative h-[500px] md:h-[600px] lg:h-[700px] transition-all duration-1000 opacity-100`}
+          style={{
+            transform: `translate(${(mousePos.x - 0.5) * 40}px, ${(mousePos.y - 0.5) * 40}px)`,
+            animation: isVisible ? 'float 8s ease-in-out infinite' : 'none',
+          }}
         >
           {/* Connection Lines SVG */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none">
@@ -116,7 +123,8 @@ const Skills = () => {
                   Math.pow(skill.x - otherSkill.x, 2) + 
                   Math.pow(skill.y - otherSkill.y, 2)
                 );
-                if (distance < 40) {
+                if (distance < 50) {
+                  const isNodeHovered = hoveredSkill === skill.name || hoveredSkill === otherSkill.name;
                   return (
                     <line
                       key={`${i}-${j}`}
@@ -125,11 +133,9 @@ const Skills = () => {
                       x2={`${otherSkill.x}%`}
                       y2={`${otherSkill.y}%`}
                       stroke="url(#lineGradient)"
-                      strokeWidth="1"
-                      className={`transition-opacity duration-300 ${
-                        hoveredSkill === skill.name || hoveredSkill === otherSkill.name
-                          ? 'opacity-100'
-                          : 'opacity-30'
+                      strokeWidth={isNodeHovered ? "2" : "1"}
+                      className={`transition-all duration-500 ${
+                        isNodeHovered ? 'opacity-100 drop-shadow-[0_0_8px_rgba(123,104,238,0.8)]' : 'opacity-20'
                       }`}
                     />
                   );
@@ -144,23 +150,19 @@ const Skills = () => {
             const isHovered = hoveredSkill === skill.name;
             const isOtherHovered = hoveredSkill && hoveredSkill !== skill.name;
             
-            // Calculate parallax offset
-            const parallaxX = (mousePos.x - 0.5) * 20 * (index % 3 + 1);
-            const parallaxY = (mousePos.y - 0.5) * 20 * (index % 3 + 1);
-            
             return (
               <div
                 key={skill.name}
-                className={`absolute skill-node cursor-pointer ${getSizeClasses()}`}
+                className={`absolute skill-node cursor-pointer ${getSizeClasses(skill.size)}`}
                 style={{
-                  left: `calc(${skill.x}% - 32px)`,
-                  top: `calc(${skill.y}% - 32px)`,
-                  transform: `translate(${parallaxX}px, ${parallaxY}px) scale(${isHovered ? 1.2 : 1})`,
+                  left: `${skill.x}%`,
+                  top: `${skill.y}%`,
+                  transform: `translate(-50%, -50%) scale(${isHovered ? 1.15 : 1})`,
                   transitionDelay: `${index * 50}ms`,
-                  animation: isVisible ? `float ${4 + index * 0.3}s ease-in-out infinite` : 'none',
-                  animationDelay: `${index * 0.2}s`,
-                  opacity: isVisible ? (isOtherHovered ? 0.4 : 1) : 0,
-                  filter: isOtherHovered ? 'blur(2px)' : 'none',
+                  opacity: isVisible ? (isOtherHovered ? 0.3 : 1) : 0,
+                  filter: isOtherHovered ? 'blur(4px)' : 'none',
+                  zIndex: isHovered ? 50 : 10,
+                  transition: 'all 0.3s ease',
                 }}
                 onMouseEnter={() => setHoveredSkill(skill.name)}
                 onMouseLeave={() => setHoveredSkill(null)}
@@ -197,7 +199,7 @@ const Skills = () => {
         {/* Skills Categories */}
         <div className={`grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {[
-            { name: 'Frontend', skills: 'React, Vue, Next.js', icon: '💻' },
+            { name: 'Frontend', skills: 'React, Next.js', icon: '💻' },
             { name: 'Styling', skills: 'Tailwind, Sass, CSS', icon: '🎨' },
             { name: 'Tools', skills: 'Git, GitHub, Figma', icon: '🛠️' },
             { name: 'Languages', skills: 'JS, TypeScript, HTML', icon: '⌨️' },

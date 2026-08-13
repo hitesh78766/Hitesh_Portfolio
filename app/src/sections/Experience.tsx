@@ -18,13 +18,13 @@ const experiences: ExperienceItem[] = [
     role: 'Frontend Developer',
     company: 'Eligo Creative Services Pvt. Ltd.',
     location: 'Shimla, Himachal Pradesh',
-    period: 'Present',
-    description: 'Working on live production client projects and delivering production-ready UI solutions.',
+    period: 'June 2025 - Present',
+    description: 'Develop and maintain production-ready frontend features for live client applications using React.js and Next.js.',
     achievements: [
-      'Contributed to the development of TripNavigate (travel platform)',
-      'Worked on business websites including Skykoda.com',
-      'Built reusable React components to improve UI consistency',
-      'Utilized AI development tools to enhance coding efficiency',
+      'Build reusable, component-based interfaces focused on maintainability, consistency, and responsive behavior.',
+      'Integrate REST APIs and handle dynamic data rendering for customer-facing and internal application workflows.',
+      'Collaborate with backend developers to consume APIs, troubleshoot integration issues, and deliver end-to-end features.',
+      'Translate UI designs into responsive and pixel-accurate interfaces across desktop, tablet, and mobile devices.',
     ],
     side: 'left',
   },
@@ -33,7 +33,7 @@ const experiences: ExperienceItem[] = [
     role: 'Web Development Trainee',
     company: 'BigBoxx Technologies',
     location: 'Chandigarh, India',
-    period: '6 Months Training',
+    period: 'Jan 2025 - June 2025',
     description: 'Learned modern frontend development practices and built multiple projects.',
     achievements: [
       'Learned React.js, Next.js, and modern frontend technologies',
@@ -138,10 +138,9 @@ const Experience = () => {
                   }}
                 />
                 
-                {/* Content Card */}
                 <div 
                   className={`ml-12 lg:ml-0 ${
-                    exp.side === 'right' ? 'lg:col-start-2' : 'lg:col-start-1 lg:text-right'
+                    exp.side === 'right' ? 'lg:col-start-2' : 'lg:col-start-1'
                   }`}
                   onMouseEnter={() => setActiveIndex(index)}
                   onMouseLeave={() => setActiveIndex(null)}
@@ -153,7 +152,7 @@ const Experience = () => {
                     style={{ transitionDelay: `${600 + index * 200}ms` }}
                   >
                     {/* Header */}
-                    <div className={`flex flex-wrap items-center gap-3 mb-3 ${exp.side === 'left' ? 'lg:justify-end' : ''}`}>
+                    <div className={`flex flex-wrap items-center gap-3 mb-3`}>
                       <span className="px-2 md:px-3 py-1 rounded-full bg-gradient-to-r from-[#7B68EE]/20 to-[#5C8DF6]/20 text-[#7B68EE] text-xs md:text-sm font-medium flex items-center gap-2">
                         <Calendar className="w-4 h-4" />
                         {exp.period}
@@ -166,7 +165,7 @@ const Experience = () => {
                     
                     {/* Role & Company */}
                     <h3 className="text-lg md:text-xl font-bold text-white mb-1">{exp.role}</h3>
-                    <div className={`flex items-center gap-2 mb-4 ${exp.side === 'left' ? 'lg:justify-end' : ''}`}>
+                    <div className={`flex items-center gap-2 mb-4`}>
                       <Building2 className="w-4 h-4 text-[#7B68EE]" />
                       <span className="text-[#B8B8D1] font-medium">{exp.company}</span>
                     </div>
@@ -179,7 +178,7 @@ const Experience = () => {
                       {exp.achievements.map((achievement, i) => (
                         <div 
                           key={i}
-                          className={`flex items-start gap-2 ${exp.side === 'left' ? 'lg:flex-row-reverse lg:text-right' : ''}`}
+                          className={`flex items-start gap-2`}
                         >
                           <ChevronRight className="w-4 h-4 text-[#7B68EE] mt-0.5 flex-shrink-0" />
                           <span className="text-xs md:text-sm text-[#B8B8D1] leading-relaxed flex-1">{achievement}</span>

@@ -175,7 +175,7 @@ const About = () => {
                     <span className="text-[#7B68EE]">skills</span>: () ={'>'} {'['}
                   </div>
                   <div className="pl-8 text-green-400">
-                    'React', 'Next.js', 'Vue', 'TypeScript'
+                    'React', 'Next.js', 'TypeScript'
                   </div>
                   <div className="pl-4">{']'}</div>
                   <div>{'}'}</div>

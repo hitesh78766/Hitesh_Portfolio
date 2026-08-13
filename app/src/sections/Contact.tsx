@@ -13,35 +13,35 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       // EmailJS Configuration
       const serviceID = 'service_p15usfn';
       const templateID = 'template_ql8s77v';
       const publicKey = 'qSGXzdjPJiwMFl0b0';
-      
+
       await emailjs.send(serviceID, templateID, {
         from_name: formState.name,
         from_email: formState.email,
         message: formState.message,
         to_email: 'hs760950@gmail.com',
       }, publicKey);
-      
+
       toast.success('Message sent successfully! I\'ll get back to you soon.');
-      
+
       setIsSubmitting(false);
       setIsSubmitted(true);
       setFormState({ name: '', email: '', message: '' });
-      
+
       // Reset success message after 5 seconds
       setTimeout(() => setIsSubmitted(false), 5000);
     } catch (error) {
       setIsSubmitting(false);
-      
+
       const errorMessage = error as any;
       if (errorMessage.text === 'The Public Key is invalid') {
         toast.error('EmailJS configuration error. Please check your Public Key.');
@@ -52,25 +52,25 @@ const Contact = () => {
       }
     }
   };
-  
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState(prev => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
-  
+
   const contactInfo = [
     { icon: Mail, label: 'Email', value: 'hs760950@gmail.com', href: 'mailto:hs760950@gmail.com' },
     { icon: Phone, label: 'Phone', value: '+91 7876697516', href: 'tel:+917876697516' },
     { icon: MapPin, label: 'Location', value: 'Shimla, Himachal Pradesh', href: '#' },
   ];
-  
+
   const socialLinks = [
     { icon: Facebook, href: 'https://m.me/Hitesh.Sharma.78766', label: 'Facebook' },
     { icon: Linkedin, href: 'https://linkedin.com/in/hitesh-sharma-7509232a6', label: 'LinkedIn' },
   ];
-  
+
   return (
     <section
       ref={sectionRef}
@@ -82,7 +82,7 @@ const Contact = () => {
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[150px]" />
         <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px]" />
       </div>
-      
+
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
         {/* Section Header */}
         <div className={`text-center mb-16 transition-all duration-700 opacity-100 translate-y-0`}>
@@ -96,13 +96,13 @@ const Contact = () => {
             Have a project in mind? Let's create something amazing together.
           </p>
         </div>
-        
+
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Left - Contact Info */}
           <div className={`space-y-8 transition-all duration-700 delay-200 opacity-100 translate-x-0`}>
             <div className="glass-card rounded-3xl p-8">
               <h3 className="text-lg md:text-2xl font-bold text-white mb-6">Contact Information</h3>
-              
+
               {/* Contact Details */}
               <div className="space-y-6">
                 {contactInfo.map((item, index) => (
@@ -110,7 +110,7 @@ const Contact = () => {
                     key={item.label}
                     href={item.href}
                     className="flex items-center gap-4 group"
-                    style={{ 
+                    style={{
                       opacity: 1,
                       transform: 'translateX(0)',
                       transition: `all 0.5s ease ${300 + index * 100}ms`,
@@ -128,31 +128,14 @@ const Contact = () => {
                   </a>
                 ))}
               </div>
-              
-              {/* Social Links */}
-              <div className="mt-8 pt-8 border-t border-[#7B68EE]/20">
-                <div className="text-[#B8B8D1] text-xs md:text-sm mb-4">Follow me on</div>
-                <div className="flex gap-3">
-                  {socialLinks.map((social, index) => (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 rounded-xl bg-[#1A1A2E] border border-[#7B68EE]/20 flex items-center justify-center text-[#B8B8D1] hover:text-white hover:border-[#7B68EE] hover:bg-[#7B68EE]/20 transition-all duration-300 hover:scale-110"
-                      style={{ transitionDelay: `${600 + index * 100}ms` }}
-                    >
-                      <social.icon className="w-5 h-5" />
-                    </a>
-                  ))}
-                </div>
-              </div>
+
+
             </div>
-            
-            {/* Availability Card */}
-            <div 
+
+            {/* Availability Card
+            <div
               className="glass-card rounded-2xl p-6 border-l-4 border-[#7B68EE]"
-              style={{ 
+              style={{
                 opacity: 1,
                 transform: 'translateY(0)',
                 transition: 'all 0.5s ease 800ms',
@@ -163,12 +146,13 @@ const Contact = () => {
                 <span className="text-white font-semibold text-sm md:text-base">Available for new projects</span>
               </div>
               <p className="text-[#B8B8D1] text-xs md:text-sm">
-                I'm currently open to freelance opportunities and full-time positions. 
+                I'm currently open to freelance opportunities and full-time positions.
                 Let's discuss how I can help bring your vision to life.
               </p>
             </div>
+            */}
           </div>
-          
+
           {/* Right - Contact Form */}
           <div className={`transition-all duration-700 delay-400 opacity-100 translate-x-0`}>
             <div className="glass-card rounded-3xl p-8">
@@ -183,15 +167,14 @@ const Contact = () => {
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <h3 className="text-lg md:text-2xl font-bold text-white mb-6">Send a Message</h3>
-                  
+
                   {/* Name Field */}
                   <div className="relative">
-                    <label 
-                      className={`absolute left-0 transition-all duration-300 ${
-                        focusedField === 'name' || formState.name 
-                          ? 'top-0 text-xs md:text-sm text-[#7B68EE]' 
+                    <label
+                      className={`absolute left-0 transition-all duration-300 ${focusedField === 'name' || formState.name
+                          ? 'top-0 text-xs md:text-sm text-[#7B68EE]'
                           : 'top-3 text-xs md:text-sm text-[#B8B8D1]'
-                      }`}
+                        }`}
                     >
                       Your Name
                     </label>
@@ -206,21 +189,19 @@ const Contact = () => {
                       autoComplete="off"
                       className="w-full bg-transparent border-b-2 border-[#7B68EE]/30 focus:border-[#7B68EE] py-3 text-white outline-none focus:outline-none transition-colors"
                     />
-                    <div 
-                      className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#7B68EE] to-[#5C8DF6] transition-all duration-300 ${
-                        focusedField === 'name' ? 'w-full' : 'w-0'
-                      }`}
+                    <div
+                      className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#7B68EE] to-[#5C8DF6] transition-all duration-300 ${focusedField === 'name' ? 'w-full' : 'w-0'
+                        }`}
                     />
                   </div>
-                  
+
                   {/* Email Field */}
                   <div className="relative">
-                    <label 
-                      className={`absolute left-0 transition-all duration-300 ${
-                        focusedField === 'email' || formState.email 
-                          ? 'top-0 text-xs md:text-sm text-[#7B68EE]' 
+                    <label
+                      className={`absolute left-0 transition-all duration-300 ${focusedField === 'email' || formState.email
+                          ? 'top-0 text-xs md:text-sm text-[#7B68EE]'
                           : 'top-3 text-xs md:text-sm text-[#B8B8D1]'
-                      }`}
+                        }`}
                     >
                       Email Address
                     </label>
@@ -235,21 +216,19 @@ const Contact = () => {
                       autoComplete="off"
                       className="w-full bg-transparent border-b-2 border-[#7B68EE]/30 focus:border-[#7B68EE] py-3 text-white outline-none focus:outline-none transition-colors"
                     />
-                    <div 
-                      className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#7B68EE] to-[#5C8DF6] transition-all duration-300 ${
-                        focusedField === 'email' ? 'w-full' : 'w-0'
-                      }`}
+                    <div
+                      className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#7B68EE] to-[#5C8DF6] transition-all duration-300 ${focusedField === 'email' ? 'w-full' : 'w-0'
+                        }`}
                     />
                   </div>
-                  
+
                   {/* Message Field */}
                   <div className="relative">
-                    <label 
-                      className={`absolute left-0 transition-all duration-300 ${
-                        focusedField === 'message' || formState.message 
-                          ? 'top-0 text-xs md:text-sm text-[#7B68EE]' 
+                    <label
+                      className={`absolute left-0 transition-all duration-300 ${focusedField === 'message' || formState.message
+                          ? 'top-0 text-xs md:text-sm text-[#7B68EE]'
                           : 'top-3 text-xs md:text-sm text-[#B8B8D1]'
-                      }`}
+                        }`}
                     >
                       Your Message
                     </label>
@@ -264,13 +243,12 @@ const Contact = () => {
                       autoComplete="off"
                       className="w-full bg-transparent py-3 text-white outline-none focus:outline-none transition-colors resize-none"
                     />
-                    <div 
-                      className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#7B68EE] to-[#5C8DF6] transition-all duration-300 ${
-                        focusedField === 'message' ? 'w-full' : 'w-0'
-                      }`}
+                    <div
+                      className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#7B68EE] to-[#5C8DF6] transition-all duration-300 ${focusedField === 'message' ? 'w-full' : 'w-0'
+                        }`}
                     />
                   </div>
-                  
+
                   {/* Submit Button */}
                   <button
                     type="submit"

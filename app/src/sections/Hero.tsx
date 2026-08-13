@@ -6,21 +6,21 @@ const Hero = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    
+
     // Particle animation
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
+
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    
+
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
-    
+
     const particles: Array<{
       x: number;
       y: number;
@@ -29,7 +29,7 @@ const Hero = () => {
       radius: number;
       opacity: number;
     }> = [];
-    
+
     for (let i = 0; i < 50; i++) {
       particles.push({
         x: Math.random() * canvas.width,
@@ -40,29 +40,29 @@ const Hero = () => {
         opacity: Math.random() * 0.5 + 0.2,
       });
     }
-    
+
     let animationId: number;
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       particles.forEach((particle, i) => {
         particle.x += particle.vx;
         particle.y += particle.vy;
-        
+
         if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
         if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
-        
+
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(123, 104, 238, ${particle.opacity})`;
         ctx.fill();
-        
+
         // Draw connections
         particles.slice(i + 1).forEach((other) => {
           const dx = particle.x - other.x;
           const dy = particle.y - other.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
-          
+
           if (distance < 150) {
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
@@ -72,12 +72,12 @@ const Hero = () => {
           }
         });
       });
-      
+
       animationId = requestAnimationFrame(animate);
     };
-    
+
     animate();
-    
+
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationId);
@@ -99,11 +99,11 @@ const Hero = () => {
         ref={canvasRef}
         className="absolute inset-0 z-0"
       />
-      
+
       {/* Gradient Orbs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] animate-float" />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-600/20 rounded-full blur-[100px] animate-float-delayed" />
-      
+
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 lg:px-12 py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -118,7 +118,7 @@ const Hero = () => {
                 <span className="gradient-text">Hitesh Sharma</span>
               </h1>
             </div>
-            
+
             {/* Role */}
             <div className="relative">
               <h2 className="text-xl md:text-3xl lg:text-4xl font-semibold text-white">
@@ -129,14 +129,14 @@ const Hero = () => {
                 </span>
               </h2>
             </div>
-            
+
             {/* Description */}
             <p className="text-sm md:text-lg text-[#B8B8D1] leading-relaxed max-w-xl">
-              I craft high-performance, accessible, and visually stunning web experiences. 
-              <span className="text-white font-semibold"> 1+ years</span> of hands-on experience 
+              I craft high-performance, accessible, and visually stunning web experiences.
+              <span className="text-white font-semibold"> 1+ years</span> of hands-on experience
               building modern frontend applications. Passionate about creating interfaces that feel like magic.
             </p>
-            
+
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4">
               <button
@@ -148,7 +148,7 @@ const Hero = () => {
                   <ArrowDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
                 </span>
               </button>
-              
+
               <a
                 href="/Hitesh_Resume.pdf"
                 download
@@ -157,9 +157,9 @@ const Hero = () => {
                 Download Resume
               </a>
             </div>
-            
+
             {/* Social Links */}
-            <div className="flex gap-4 pt-4">
+            {/* <div className="flex gap-4 pt-4">
               {[
                 { icon: Facebook, href: 'https://m.me/Hitesh.Sharma.78766', label: 'Facebook' },
                 { icon: Linkedin, href: 'https://linkedin.com/in/hitesh-sharma-7509232a6', label: 'LinkedIn' },
@@ -175,9 +175,9 @@ const Hero = () => {
                   <social.icon className="w-5 h-5" />
                 </a>
               ))}
-            </div>
+            </div> */}
           </div>
-          
+
           {/* Right - Profile Image */}
           <div className={`relative flex justify-center lg:justify-end transition-all duration-1000 delay-300 opacity-100 translate-x-0`}>
             {/* Decorative Rings */}
@@ -186,7 +186,7 @@ const Hero = () => {
               <div className="absolute w-[350px] h-[350px] border border-[#5C8DF6]/20 rounded-full animate-rotate-slow" style={{ animationDirection: 'reverse', animationDuration: '25s' }} />
               <div className="absolute w-[450px] h-[450px] border border-dashed border-[#7B68EE]/10 rounded-full animate-rotate-slow" style={{ animationDuration: '30s' }} />
             </div>
-            
+
             {/* Image Container */}
             <div className="relative w-80 h-96 lg:w-96 lg:h-[480px] rounded-3xl overflow-hidden gradient-border animate-pulse-glow">
               <img
@@ -194,10 +194,10 @@ const Hero = () => {
                 alt="Hitesh Sharma"
                 className="w-full h-full object-cover"
               />
-              
+
               {/* Overlay Gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F1A]/60 via-transparent to-transparent" />
-              
+
               {/* Floating Badge */}
               <div className="absolute -bottom-3 -left-3 glass-card px-6 py-3 rounded-2xl ">
                 <div className="flex items-center gap-3">
@@ -205,7 +205,7 @@ const Hero = () => {
                   <span className="text-white font-semibold">Available for work</span>
                 </div>
               </div>
-              
+
               {/* Experience Badge */}
               <div className="absolute -top-2 -right-3 glass-card px-4 py-2 rounded-xl ">
                 <span className="text-2xl font-bold gradient-text">1+</span>
@@ -215,7 +215,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Bottom Gradient Fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0F0F1A] to-transparent" />
     </section>

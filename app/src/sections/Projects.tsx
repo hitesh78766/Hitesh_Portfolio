@@ -13,66 +13,31 @@ interface Project {
 
 const projects: Project[] = [
   {
-    id: 1,
-    title: 'SkyKoda',
-    category: 'Travel',
-    description: 'Professional web platform offering innovative digital solutions and services for modern businesses.',
-    image: '/images/project-1.jpg',
-    liveUrl: 'https://skykoda.com/',
+    id: 8,
+    title: 'TrackItinerary',
+    category: 'SaaS',
+    description: 'Multi-Tenant SaaS CRM for travel agencies supporting lead management, itinerary creation, automated follow-ups, and booking operations.',
+    image: '/images/project-8.jpg',
+    liveUrl: 'https://trackitinerary.com/',
     githubUrl: '#',
   },
+  {
+    id: 9,
+    title: 'Mindcraft',
+    category: 'Design',
+    description: 'Interactive interior design platform showcasing projects, services, and design concepts with API-driven functionality.',
+    image: '/images/project-1.jpg',
+    liveUrl: '#',
+    githubUrl: '#',
+  },
+
   {
     id: 2,
     title: 'TripNavigate',
     category: 'Travel',
     description: 'Comprehensive travel navigation platform helping users discover and plan their perfect journeys.',
     image: '/images/project-2.jpg',
-    liveUrl: 'https://www.tripnavigate.com/',
-    githubUrl: '#',
-  },
-  {
-    id: 3,
-    title: 'Shreeshyam Explorar',
-    category: 'Travel',
-    description: 'Travel and tourism platform offering unique exploration experiences and destination guides.',
-    image: '/images/project-3.jpg',
-    liveUrl: 'https://shreeshyamexplorar.com/',
-    githubUrl: '#',
-  },
-  {
-    id: 4,
-    title: 'GSSS Sangla kinnaur',
-    category: 'Education',
-    description: 'Educational platform for GSSS Sanglaknr providing comprehensive learning resources and information.',
-    image: '/images/project-4.jpg',
-    liveUrl: 'https://sites.google.com/view/gssssanglaknr/',
-    githubUrl: '#',
-  },
-  {
-    id: 5,
-    title: '1TimeShop',
-    category: 'E-commerce',
-    description: 'Modern e-commerce platform offering a wide range of products with seamless shopping experience.',
-    image: '/images/project-5.jpg',
-    liveUrl: 'https://1timeshop.com/',
-    githubUrl: '#',
-  },
-  {
-    id: 6,
-    title: 'WenuFly',
-    category: 'Travel',
-    description: 'Travel services platform providing comprehensive flight booking and travel management solutions.',
-    image: '/images/project-6.jpg',
-    liveUrl: 'https://www.wenufly.com/',
-    githubUrl: '#',
-  },
-  {
-    id: 7,
-    title: 'Pioneer Healthcare',
-    category: 'Healthcare',
-    description: 'Healthcare platform offering comprehensive medical services and patient care solutions.',
-    image: '/images/project-7.jpg',
-    liveUrl: 'https://pioneerhealthcare.co.in/',
+    liveUrl: 'https://www.google.com/search?q=tripnavigate',
     githubUrl: '#',
   },
 ];
@@ -80,7 +45,6 @@ const projects: Project[] = [
 const Projects = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-  const [filter, setFilter] = useState('All');
   const sectionRef = useRef<HTMLElement>(null);
   
   useEffect(() => {
@@ -100,12 +64,6 @@ const Projects = () => {
     
     return () => observer.disconnect();
   }, []);
-  
-  const categories = ['All', 'Travel', 'Education', 'E-commerce', 'Healthcare'];
-  
-  const filteredProjects = filter === 'All' 
-    ? projects 
-    : projects.filter(p => p.category.toLowerCase().includes(filter.toLowerCase()));
   
   return (
     <section
@@ -133,29 +91,12 @@ const Projects = () => {
           </p>
         </div>
         
-        {/* Filter Tabs */}
-        <div className={`flex flex-wrap justify-center gap-3 mb-12 transition-all duration-700 delay-200 opacity-100 translate-y-0`}>
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setFilter(category)}
-              className={`px-4 md:px-6 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 ${
-                filter === category
-                  ? 'bg-gradient-to-r from-[#7B68EE] to-[#5C8DF6] text-white shadow-lg shadow-[#7B68EE]/30'
-                  : 'bg-[#1A1A2E] text-[#B8B8D1] border border-[#7B68EE]/20 hover:border-[#7B68EE]/50 hover:text-white'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-        
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredProjects.map((project, index) => (
+        <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
+          {projects.map((project, index) => (
             <div
               key={project.id}
-              className={`group relative glass-card rounded-2xl overflow-hidden transition-all duration-500 hover-lift opacity-100 translate-y-0`}
+              className={`w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] max-w-[400px] group relative glass-card rounded-2xl overflow-hidden transition-all duration-500 hover-lift opacity-100 translate-y-0`}
               style={{ 
                 transitionDelay: `${300 + index * 100}ms`,
                 animation: `float ${5 + index * 0.5}s ease-in-out infinite`,
@@ -181,14 +122,16 @@ const Projects = () => {
                 <div className={`absolute inset-0 flex items-center justify-center gap-4 transition-all duration-300 ${
                   hoveredProject === project.id ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                 }`}>
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-full bg-[#7B68EE] flex items-center justify-center text-white hover:bg-[#5C8DF6] hover:scale-110 transition-all duration-300"
-                  >
-                    <Eye className="w-5 h-5" />
-                  </a>
+                  {project.liveUrl !== '#' && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-full bg-[#7B68EE] flex items-center justify-center text-white hover:bg-[#5C8DF6] hover:scale-110 transition-all duration-300"
+                    >
+                      <Eye className="w-5 h-5" />
+                    </a>
+                  )}
                   
                 </div>
                 
