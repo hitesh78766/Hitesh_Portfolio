@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Send, Mail, MapPin, Phone, Linkedin, Facebook, CheckCircle } from 'lucide-react';
+import { Send, Mail, MapPin, Phone, CheckCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import toast from 'react-hot-toast';
 
@@ -66,10 +66,7 @@ const Contact = () => {
     { icon: MapPin, label: 'Location', value: 'Shimla, Himachal Pradesh', href: '#' },
   ];
 
-  const socialLinks = [
-    { icon: Facebook, href: 'https://m.me/Hitesh.Sharma.78766', label: 'Facebook' },
-    { icon: Linkedin, href: 'https://linkedin.com/in/hitesh-sharma-7509232a6', label: 'LinkedIn' },
-  ];
+
 
   return (
     <section
