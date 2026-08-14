@@ -193,6 +193,7 @@ const Hero = () => {
                 src="/images/image-profile.jpg"
                 alt="Hitesh Sharma"
                 className="w-full h-full object-cover"
+
               />
 
               {/* Overlay Gradient */}
